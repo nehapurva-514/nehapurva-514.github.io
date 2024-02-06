@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISS ASSIGNMENT</title>
+    <link rel="stylesheet" href="fontawesome-free-6.5.1-web/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        /* Add your CSS styles here */
+        body {
+            /* Set default background color and text color */
+            background-color: #ffffff;
+            color: #000000;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        body.dark-mode {
+            /* Set dark mode background color and text color */
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .topnav {
+            background-color: #0d0d0d;
+            overflow: hidden;
+        }
+
+        .topnav a {
+            float: left;
+            color: #e8e1e1;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: rgb(71, 143, 231);
+        }
+
+        .topnav a.active {
+            background-color: #382bc6;
+            color: rgb(244, 245, 242);
+        }
+
+        .slide {
+            display: none;
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: rgb(20, 19, 19);
+            animation: slideInLeft 0.5s ease-in-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .blog-section a {
+            color: #fdfbfb; /* Replace #FF0000 with your desired color code */
+        }
+
+        /* Change color of hyperlinks in the about section */
+        .about-section a {
+            color: #f7f6f5; 
+        }
+
+        /* Define background images for each slide */
+        #about {
+            background-image: url('1.png');
+        }
+
+        #about.dark-mode {
+            background-image: url('7.png');
+        }
+
+        #education {
+            background-image: url('3.png');
+        }
+
+        #education.dark-mode {
+            background-image: url('8.png');
+        }
+
+        #achievements {
+            background-image: url('4.png');
+        }
+
+        #achievements.dark-mode {
+            background-image: url('14.png');
+        }
+
+        #skills {
+            background-image: url('5.png');
+        }
+
+        #skills.dark-mode {
+            background-image: url('10.png');
+        }
+
+        #blog {
+            background-image: url('15.png');
+        }
+
+        #blog.dark-mode {
+            background-image: url('13.png');
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        img {
+            max-width: 25%;
+            max-height: 15%;
+            float: left;
+            border-radius: 50%;
+            height: 350px;
+            width: 300px;
+            margin-right: 20px;
+            align-content: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            text-align: center;
+            font-style: italic;
+            font-size: larger;
+            margin-bottom: 20px;
+        }
+
+        /* Styles for the toggle switch */
+        .toggle-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Add this to your existing CSS */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgb(8, 8, 8);
+            padding: 10px 0;
+            text-align: center;
+            color: #fff;
+        }
+
+        .bottom-bar a {
+            color:#fff;
+            font-size: 24px;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .bottom-bar a:hover {
+            color: rgb(202, 58, 99);
+        }
+
+        .social-icons a {
+            color: #fff;
+            font-size: 24px;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: #bbb;
+        }
+
+        /* Styles for the mode text */
+        #darkModeToggle {
+            margin-left: 10px;
+            font-size: 14px;
+            color: #0c0c0c; /* Set text color to black by default */
+        }
+
+        body.dark-mode #darkModeToggle {
+            color: #fbf9f9; /* Set text color to white in dark mode */
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #141313;
+            color: #ffffff; /* Text color for dark mode */
+        }
+
+        /* Change background color to white in dark mode */
+        body.dark-mode {
+            background-color: #070000;
+        }
+
+        body.dark-mode p {
+            color: #ffffff;
+        }
+
+        #blog {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgb(13, 13, 13);
+            padding: 10px 0;
+            text-align: center;
+            color: #fff; /* Set text color to white */
+        }
+
+        .slide.dark-mode h2 {
+            color: white;
+        }
+
+        /* Default styles */
+
+        /* Add styles for laptop/desktop */
+        @media (min-width: 768px) {
+            /* Adjust the layout for larger screens */
+            .container {
+                flex-direction: row;
+            }
+            img {
+                max-width: 300px;
+                max-height: 350px;
+            }
+            p {
+                font-size: larger;
+            }
+        }
+
+        /* Add styles for phones */
+        @media (max-width: 767px) {
+            /* Adjust the layout for smaller screens */
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            img {
+                max-width: 200px;
+                max-height: 250px;
+                margin-right: 0;
+                margin-bottom: 20px; /* Add some space between the image and paragraph */
+            }
+            p {
+                text-align: center;
+                font-size: medium;
+            }
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        img {
+            max-width: 55%;
+            max-height: 15%;
+            border-radius: 50%;
+            height: 350px;
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .text-container {
+            margin-top: 20px; /* Add some space between the image and text container */
+        }
+
+        .text-container p {
+            font-style: italic;
+            font-size: larger;
+            margin-bottom: 20px;
+        }
+
+        .text-container a {
+            display: block; /* Ensure the link takes full width */
+            font-size: 18px;
+            color: #382bc6;
+            text-decoration: none;
+        }
+
+        .slide a{
+            color: #2196F3;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body onload="showSlide('about')">
+<div class="topnav">
+    <a href="#" onclick="showSlide('about')">About</a>
+    <a href="#" onclick="showSlide('education')">Education</a>
+    <a href="#" onclick="showSlide('achievements')">Achievements</a>
+    <a href="#" onclick="showSlide('skills')">Skills</a>
+    <a href="#" onclick="showSlide('blog')">Blog</a>
+</div>
+
+<div class="toggle-container">
+    <label class="switch">
+        <input type="checkbox" id="darkModeToggle" class="toggle-checkbox">
+        <span class="slider round"></span>
+    </label>
+</div>
+
+<div class="slide" id="about">
+    <div class="container">
+        <img src="2.png" alt="Profile picture">
+        <p>My name is N.N. Apurva, and I am currently in my first year of engineering at IIIT Hyderabad. I hail from Hyderabad, a city rich in culture and diversity.
+
+            I am proficient in three languages: Hindi, English, and Telugu, which enables me to connect with people from various backgrounds and communicate effectively.
+
+            Describing myself in three words, I would say that I am confident, strong-willed, and adept at adapting to new situations and challenges. These qualities have helped shape my personality and approach to life.
+
+            In my leisure time, I indulge in several hobbies. I enjoy playing badminton, which not only keeps me physically active but also allows me to unwind and relax. Dancing is another passion of mine, as it provides me with a creative outlet and a means of self-expression. Additionally, I find joy in watching series, immersing myself in captivating storylines and exploring different genres.
+
+            Overall, I strive to balance my academic pursuits with my interests and hobbies, embracing each experience as an opportunity for growth and self-discovery.</p>
+        <a href="resume.html"> RESUME</a>
+        <br/><br/>
+    </div>
+</div>
+
+<div class="slide" id="education">
+    <h2>EDUCATION</h2>
+
+    <p>Hello, I'm N.N. Apurva. Hyderabad has been my home since birth, and I completed my schooling at Bharatiya Vidya Bhavan. Initially, I was drawn to the field of commerce and decided to pursue MEC (Mathematics, Economics, and Commerce) for my further studies in the state board.
+
+        My initial ambition was to become a Chartered Accountant, and I even took the CA foundation exam to pursue this goal. However, during this time, I came across a college that intrigued me. After applying and undergoing an interview process,
+
+        I was offered a spot, which led me to reconsider my career path.
+
+        I made a significant decision to transition from pursuing Chartered Accountancy to engineering. This shift completely altered the trajectory of my future plans. It marked a pivotal moment in my educational journey, highlighting my openness to new opportunities and willingness to explore diverse fields.
+
+        The journey from considering a career in finance to embracing engineering has been transformative. It reflects my adaptability and willingness to challenge myself academically and professionally.
+
+        Each step in my educational journey has contributed to my growth and has shaped my understanding of various disciplines. I am excited to continue my exploration and pursuit of knowledge in the field of engineering, embracing the challenges and opportunities that lie ahead.</p>
+</div>
+
+<div class="slide" id="achievements">
+    <!-- Content for Achievements slide goes here -->
+    <h2>ACHIEVEMENTS</h2>
+    <p>Achievements signify significant milestones in one's journey, encapsulating dedication, perseverance, and the pursuit of excellence. As the head girl of my school, I embraced a leadership role that taught me invaluable lessons in communication, teamwork, and problem-solving. It was a privilege to serve as a role model for my peers and contribute positively to the school community.
+
+        Securing a remarkable 97.8% in the board examinations reflected years of hard work, dedication, and a genuine passion for learning. This achievement instilled a profound sense of pride and accomplishment while underscoring the importance of academic excellence.
+
+        Cracking the CA Foundation exam marked a pivotal moment in my academic pursuits, affirming my dedication to the field of finance and accounting. It was a testament to resilience and determination in the face of challenges.
+
+        Gaining admission to IIIT Hyderabad (IIITH) stands as a testament to my academic abilities and potential. It offers a platform to further my knowledge, explore new horizons, and contribute to technological innovation.
+
+        These achievements have not only shaped my academic and professional trajectory but have also fostered personal growth and development. They serve as reminders of the resilience and perseverance required to overcome obstacles and achieve greatness. As I continue to pursue my aspirations, I remain grateful for the opportunities that have propelled me forward and look forward to embracing new challenges on the path to success.</p>
+</div>
+
+<div class="slide" id="skills">
+    <!-- Content for Skills slide goes here -->
+    <h2>SKILLS</h2>
+    <p>Equipped with a diverse array of skills, I navigate both personal and professional spheres with confidence and effectiveness. Central to my abilities is strong communication proficiency, allowing me to articulate ideas clearly and forge meaningful connections with others. As a natural leader, I excel in inspiring and guiding teams toward common objectives, drawing upon experiences like serving as the head girl of my school to cultivate leadership acumen. My collaborative spirit shines through in my adeptness at teamwork, where I seamlessly integrate with others, leveraging collective strengths to achieve shared goals while fostering inclusivity and respect for diverse perspectives.
+
+        In the face of challenges, my adaptability and resilience serve as pillars of strength, enabling me to thrive amidst change and uncertainty. These qualities, coupled with sharp problem-solving skills and keen critical thinking, empower me to tackle complex tasks with agility and precision. Moreover, my adept time management ensures optimal efficiency in all endeavors, allowing me to balance multiple responsibilities effectively.
+
+        With this comprehensive skill set at my disposal, I confidently navigate the multifaceted landscape of today's world, contributing meaningfully to teams and seizing opportunities for growth and success along the way.</p>
+</div>
+
+<div class="slide" id="blog">
+    <!-- Content for Blog slide goes here -->
+    <h2>BLOG</h2>
+    <a href="blog1.html"> My First Post!</a>
+    <br/><br/>
+    <a href="blog2.html"> My second Post!</a>
+    <br/><br/>
+
+
+</div>
+<div class="bottom-bar">
+    <span>Contact: +91 9848233347</span>
+    
+    <a href="https://www.instagram.com/nehapurva_514" target="_blank" class="social-icons" id="instagram"><i class='bx bxl-instagram'></i></a>
+    <a href="https://github.com/nehapurva-514" target="_blank" class="social-icons" id="github"><i class='bx bxl-github' ></i></a>
+    <a href="mailto:nehaapurva14@gmail.com" target="_blank" class="social-icons" id="gmail"><i class='bx bxl-gmail' ></i></a>
+</div>
+<script>
+    // JavaScript function to show the selected slide and hide others
+    function showSlide(slideId) {
+        // Hide all slides
+        var slides = document.getElementsByClassName("slide");
+        for (var i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+
+        // Show the selected slide
+        document.getElementById(slideId).style.display = "block";
+
+        // Update the active class in the navigation bar
+        var navLinks = document.getElementsByClassName("topnav")[0].getElementsByTagName("a");
+        for (var i = 0; i < navLinks.length; i++) {
+            navLinks[i].classList.remove("active");
+        }
+        document.querySelector('[href="#' + slideId + '"]').classList.add("active");
+    }
+
+    // Function to toggle between light and dark mode
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+    const about = document.getElementById('about');
+    const education = document.getElementById('education');
+    const achievements = document.getElementById('achievements');
+    const skills = document.getElementById('skills');
+    const blog = document.getElementById('blog');
+
+    darkModeToggle.addEventListener('change', () => {
+        if (darkModeToggle.checked) {
+            body.classList.add('dark-mode');
+            about.classList.add('dark-mode');
+            education.classList.add('dark-mode');
+            achievements.classList.add('dark-mode');
+            skills.classList.add('dark-mode');
+            blog.classList.add('dark-mode');
+        } else {
+            body.classList.remove('dark-mode');
+            about.classList.remove('dark-mode');
+            education.classList.remove('dark-mode');
+            achievements.classList.remove('dark-mode');
+            skills.classList.remove('dark-mode');
+            blog.classList.remove('dark-mode');
+        }
+    });
+</script>
+</body>
+</html>

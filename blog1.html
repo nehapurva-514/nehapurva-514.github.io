@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>It Starts with Us by Colleen Hoover</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .like-section {
+            margin-top: 20px;
+        }
+
+        #like-btn {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        #like-btn:hover {
+            background-color: #0056b3;
+        }
+
+        #like-counter {
+            margin-left: 10px;
+            font-size: 18px;
+        }
+
+        #comment-box {
+            margin-top: 20px;
+        }
+
+        #comment-input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        #submit_cmnt {
+            padding: 8px 16px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        #submit_cmnt:hover {
+            background-color: #218838;
+        }
+
+        #comment-section {
+            margin-top: 20px;
+        }
+
+        #comments-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #clear-storage {
+            margin-top: 20px;
+            padding: 8px 16px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        #clear-storage:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>It Starts with Us by Colleen Hoover</h1>
+    <p>Colleen Hoover's novel 'It Starts with Us' takes readers on an emotional journey through the complexities of love, resilience, and the intricacies of human relationships. The story follows Lily Bloom as she navigates a passionate romance with neurosurgeon Ryle Kincaid. However, beneath the surface lies the shadow of domestic abuse and secrets that threaten their bond. Through Lily's journey, themes of forgiveness and self-discovery emerge, challenging societal norms and perceptions of love. 'It Starts with Us' is a poignant exploration of the human heart's capacity to love, forgive, and find strength in the face of adversity.</p>
+</div>
+<div class="like-section">
+    <button id="like-btn" onclick="like()">Like</button>
+    <span id="like-counter">0</span>
+</div>
+
+<div id="comment-box">
+    <h2>Leave a Comment</h2>
+    <textarea id="comment-input" rows="4" cols="50"></textarea>
+    <br>
+    <button id="submit_cmnt" onclick="submitComment()">Submit Comment</button>
+</div>
+
+<div id="comment-section">
+    <h2>Comments</h2>
+    <ul id="comments-list"></ul>
+</div>
+
+<button id="clear-storage" onclick="clearLocalStorage()">Clear Local Storage</button>
+
+<script>
+    let likeCount = parseInt(localStorage.getItem('likeCount')) || 0;
+
+    function like() {
+        likeCount++;
+        localStorage.setItem('likeCount', likeCount);
+        document.getElementById('like-counter').innerText = likeCount;
+    }
+
+    // Comment functionality
+    function submitComment() {
+        const commentInput = document.getElementById('comment-input').value;
+        if (commentInput.trim() !== "") {
+            const commentList = document.getElementById('comments-list');
+            const newComment = document.createElement('li');
+            newComment.textContent = commentInput;
+            commentList.appendChild(newComment);
+            document.getElementById('comment-input').value = "";
+
+            const comments = JSON.parse(localStorage.getItem('comments')) || [];
+            comments.push(commentInput);
+            localStorage.setItem('comments', JSON.stringify(comments));
+        }
+    }
+
+    window.onload = function () {
+        const comments = JSON.parse(localStorage.getItem('comments')) || [];
+        const commentList = document.getElementById('comments-list');
+        comments.forEach(comment => {
+            const newComment = document.createElement('li');
+            newComment.textContent = comment;
+            commentList.appendChild(newComment);
+        });
+
+        document.getElementById('like-counter').innerText = likeCount;
+    };
+
+    // Function to clear local storage
+    function clearLocalStorage() {
+        localStorage.clear();
+        likeCount = 0;
+        document.getElementById('like-counter').innerText = likeCount;
+        const commentList = document.getElementById('comments-list');
+        commentList.innerHTML = '';
+    }
+</script>
+</body>
+</html>
